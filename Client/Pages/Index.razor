@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@inject IJSRuntime JSRuntime
 <!-- Carousel Start -->
 <div class="container-fluid p-0 mb-5 wow fadeIn" data-wow-delay="0.1s">
     <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -201,7 +201,7 @@
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
             <p class="d-inline-block bg-secondary text-primary py-1 px-4">Testimonial</p>
-            <h1 class="text-uppercase">Hear from my clients!</h1>
+            <h1 class="text-uppercase">What Our Clients Say!</h1>
         </div>
         <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
             <div class="testimonial-item text-center" data-dot="<img class='img-fluid' src='img/testimonial-1.jpg' alt=''>">
@@ -225,5 +225,10 @@
 <!-- Testimonial End -->
 @code{
     int YearsOfExperience = DateTime.Now.Year - 2010;
-
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeAsync<string>("sliderFunctions.startSlider", null);
+        //return base.OnAfterRenderAsync(firstRender);
+    }
 }
+
